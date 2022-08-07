@@ -1,0 +1,56 @@
+.Head {
+
+  font-weight: 800;
+
+}
+
+
+.Container {
+  display: flex;
+  padding: 30px;
+  flex-direction: column;
+}
+
+
+.TextTitle {
+  font-size: 35px;
+  line-height: 60px;
+  font-weight: bold;
+}
+
+.TextSmall {
+  font-size: 15px;
+  font-weight: 600;
+
+}
+
+.ButtonGroup {
+  padding: 20px 0px;
+  display: flex;
+  flex-direction: column;
+  height: 119px;
+  justify-content: space-between;
+}
+
+.overlayContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  margin-top: -75px;
+  margin-left: -75px;
+  background: white;
+  border-radius: 16px;
+}
+
+.Form1 {}
+
+.adm-list-default .adm-list-body {
+  position: relative;
+  overflow: scroll;
+  height: 300px;
+}
