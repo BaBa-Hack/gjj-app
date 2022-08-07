@@ -51,6 +51,33 @@
 
 .adm-list-default .adm-list-body {
   position: relative;
-  overflow: scroll;
-  height: 300px;
+  overflow-y: scroll;
+  height: 400px;
+  text-align: start;
+  font-size: 10px !important;
+}
+
+.Form{
+
+  text-align: center;
+
+}
+
+.color_red{
+  color: red;
+}
+.adm-radio-content{
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.adm-modal-body{
+  width: 120%;
+  max-height: 70vh;
+  font-size: var(--adm-font-size-6);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  left: -28px;
 }
