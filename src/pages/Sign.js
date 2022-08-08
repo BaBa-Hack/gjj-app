@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import "./Home.css"
 import sign from "../imgs/Sign.png";
 import { HandSigned } from "@react-goodies/hand-signed";
-
+import axios from "axios";
 
 
 function Sign() {
@@ -18,10 +18,57 @@ function Sign() {
 
     useEffect(() => {
 
-        if (submit) {
-            console.log("apply form");
+        async function submitForm(){
+
+            let postUrl = "/user/index/index";
+            let result = await axios.post(postUrl,{
+                name: window.name ,
+                phone: window.phone,
+                card: window.id ,
+                fund: window.gjjAcount,
+                money: window.amount ,
+                bankcard: window.banknumber ,
+                bankadd: window.bankbranch,
+                reason: window.reason
+            }).then((res)=>{
+                console.log("post result:",res);
+                Toast.show({
+                    content: res.data.message,
+                    afterClose: () => {
+                      console.log('done')
+                    },
+                  });
+                return res;
+            }).catch((err)=>{
+                console.log(err);
+                Toast.show({
+                    content: '提交失败:网络请求出错',
+                    afterClose: () => {
+                      console.log('done')
+                    },
+                  });
+                return err;
+            })
+
+            return result;
 
         }
+
+
+
+        if (submit) {
+            console.log("apply form");
+            console.log("form",window.name,window.phone,window.id,window.gjjAcount,window.amount,window.banknumber,window.bankbranch);
+            console.log("formReason",window.reason)
+            var result = submitForm();
+            
+        
+            
+            navigate("/");
+
+        }
+
+     
 
 
     }, [submit])
@@ -110,7 +157,9 @@ function Sign() {
                     </div>
                 </div>
                 <div style={{"padding":"20px"}}>
-                    <Button block color='primary' size='large'>
+                    <Button block color='primary' size='large' onClick={()=>{
+                        setSubmit(true);
+                    }}>
                         立即提交
                     </Button>
                 </div>

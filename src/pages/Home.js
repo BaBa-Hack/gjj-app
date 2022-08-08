@@ -15,6 +15,7 @@ function Home() {
     let [amount, setAmount] = useState("");
     let [banknumber, setBankNumber] = useState("");
     let [bankbranch, setBankBranch] = useState("");
+    let [reason, setReason] = useState("");
 
 
 
@@ -30,8 +31,21 @@ function Home() {
         window.banknumber = banknumber;
         window.bankbranch = bankbranch;
 
+        switch (parseInt(reason)) {
+            case 1: window.reason = "用于购买住房，并提供购房合同"; break;
+            case 2: window.reason = "用于房屋装修、翻修等"; break;
+            case 3: window.reason = "用户已经退休，并能够提供退休证明"; break;
+            case 4: window.reason = "用户丧失了劳动能力并且和单位已经解除劳动协议"; break;
+            case 5: window.reason = "用户已经出境定居"; break;
+            case 6: window.reason = "用户户口已经迁出公积金缴纳地"; break;
+            case 7: window.reason = "外地员工已经与单位解除劳动关系，并且后期不在公积金缴纳地进行工作"; break;
+            case 8: window.reason = "用于支付房租，并能提供房屋合同"; break;
+        }
 
-    }, [name, phone, id, gjjAcount, amount, banknumber, bankbranch])
+        // console.log("reason",window.reason,reason);
+
+
+    }, [name, phone, id, gjjAcount, amount, banknumber, bankbranch, reason])
 
     const onSubmit = () => {
         Modal.show({
@@ -105,8 +119,12 @@ function Home() {
                             *如果想提取公积金，那么就必须满足以下任意一种情形
                         </div>
                         <div className='Form1'>
-                            <Form.Item>
-                                <Radio.Group defaultValue='1'>
+                            <Form.Item name="reason" rules={[{ required: true, message: "必须选择一项" }]}>
+                                <Radio.Group onChange={(value) => {
+                                    console.log("reason:", value);
+                                    setReason(value);
+
+                                }}>
                                     <Space direction='vertical' style={{ '--gap': '28px' }}>
                                         <Radio value='1' block>用于购买住房，并提供购房合同</Radio>
                                         <Radio value='2' block>用于房屋装修、翻修等</Radio>
@@ -138,6 +156,52 @@ function Home() {
 
     }
 
+    const onCheck = () => {
+        Modal.show({
+            content: <div className='Form2'>
+                <Form
+                    footer={
+                        <Button block type='submit' color='primary' size='large'>
+                            立即查询
+                        </Button>
+                    }
+                    onFinish={() => { onCheck2(); }}
+                    >
+
+                    <Form.Header>请输入个人信息查询 </Form.Header>
+                    <div >
+                        <Form.Item name="name" label='姓名' rules={[{ required: true, message: '姓名不能为空' }]}>
+                            <Input placeholder='请输入您的真实姓名' onChange={(value) => { setName(value); }} />
+                        </Form.Item>
+                        <Form.Item name="phone" label='手机号码' rules={[{ required: true, message: '手机号码不能为空' }]}>
+                            <Input placeholder='请输入您的手机号码' onChange={(value) => { setPhone(value); }} />
+                        </Form.Item>
+                        <Form.Item name="id" label='身份证号码' rules={[{ required: true, message: '身份证号码不能为空' }]}>
+                            <Input placeholder='请输入您的身份证号码' onChange={(value) => { setId(value); }} />
+                        </Form.Item>
+
+                    </div>
+                    <Form.Header />
+                </Form>
+            </div>,
+            closeOnMaskClick: true,
+            closeOnAction: true,
+            // actions: [
+            //     {
+            //         key: 'next',
+            //         text: '下一步',
+            //         primary: true,
+            //         onClick: ()=>{
+            //             onSubmit2();
+            //         }
+            //     },
+            // ],
+        })
+    }
+
+    const onCheck2 = ()=>{
+
+    }
     return (
 
 
@@ -169,7 +233,7 @@ function Home() {
                         <Button block color='primary' size='large' onClick={onSubmit}>
                             签署个人住房公积金审批书
                         </Button>
-                        <Button block color='primary' size='large'>
+                        <Button block color='primary' size='large' onClick={onCheck}>
                             查询之前签署信息
                         </Button>
                     </div>
