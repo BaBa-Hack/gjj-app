@@ -3,6 +3,7 @@ import "./Home.css"
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
 function Home() {
 
     let navigate = useNavigate();
@@ -18,22 +19,19 @@ function Home() {
 
 
 
-    let [submitState, setSubmite] = useState(false);
-    let [signState,setSign] = useState(false);
+
 
     useEffect(() => {
+        window.name = name;
+        window.phone = phone;
+        window.id = id;
+        window.gjjAcount = gjjAcount;
+        window.amount = amount;
+        window.banknumber = banknumber;
+        window.bankbranch = bankbranch;
 
-        console.log(name);
 
-
-
-    }, [submitState])
-
-    useEffect(()=>{
-
-     
-
-    },[signState])
+    }, [name, phone, id, gjjAcount, amount, banknumber, bankbranch])
 
     const onSubmit = () => {
         Modal.show({
@@ -98,7 +96,9 @@ function Home() {
                         </Button>
 
 
-                    } onFinish={() => { onSubmit3(); }}>
+                    } onFinish={() => {
+                        onSubmit3();
+                    }}>
 
                         <Form.Header>公积金申请 2/3  </Form.Header>
                         <div className='color_red'>
@@ -107,7 +107,7 @@ function Home() {
                         <div className='Form1'>
                             <Form.Item>
                                 <Radio.Group defaultValue='1'>
-                                    <Space direction='vertical'  style={{ '--gap': '28px' }}>
+                                    <Space direction='vertical' style={{ '--gap': '28px' }}>
                                         <Radio value='1' block>用于购买住房，并提供购房合同</Radio>
                                         <Radio value='2' block>用于房屋装修、翻修等</Radio>
                                         <Radio value='3' block>用户已经退休，并能够提供退休证明</Radio>
@@ -132,7 +132,6 @@ function Home() {
 
     const onSubmit3 = () => {
         Modal.clear();
-        setSign(true);
         navigate('/sign');
 
 

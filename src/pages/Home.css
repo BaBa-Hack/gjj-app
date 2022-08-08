@@ -81,3 +81,40 @@
   position: relative;
   left: -28px;
 }
+
+.SignContainer{
+
+  margin:1em;
+  text-indent: 2em;
+  font-size: large;
+  font-weight: 580;
+  line-height: 125%;
+  display: flex;
+  flex-direction: column;
+}
+
+.SmallText{
+  font-size: small;
+  font-weight: 550;
+}
+
+.SSContainer{
+  display: flex;
+  flex-direction: row;
+  font-size: smaller;
+}
+
+.SSSContainer{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  /* text-align: start; */
+  text-indent: 0%;
+}
+
+.SmallButton{
+  width: 50%;
+  height: 20%;
+  font-size: 10px !important;
+}
