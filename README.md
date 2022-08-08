@@ -1,2 +1,12 @@
-公积金提交查询系统，带在线客服，前端React 后端php admin系统，后台不开源！还有在线客服系统！
-有需求的找我！
+Provident fund query system using for Goverment official usage.
+
+provide a simple framework of React form apply and  form check system.
+the component using ant-mobile-design library.
+So it is a mobile friendly website.
+
+Frontend is React
+Backend is Php Thinkphp including adminstration system
+
+I just upload the Frontend in this repo, if you have requirment of this program, pls contact me .
+
+Or you can just build up your own backend system for it.
