@@ -1,4 +1,4 @@
-import { NavBar, Toast, Space, Button, Image } from "antd-mobile";
+import { NavBar, Toast, Space, Button, Image, Modal } from "antd-mobile";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import "./Home.css"
@@ -9,44 +9,46 @@ import axios from "axios";
 
 function Sign() {
     const mainRef = useRef(null);
+    const showRef = useRef(null);
 
 
     let navigate = useNavigate();
     let [submit, setSubmit] = useState(false);
+    let [signData,setSignData] = useState(null);
 
     const [signature, setSign] = useState(null);
 
     useEffect(() => {
 
-        async function submitForm(){
+        async function submitForm() {
 
             let postUrl = "/user/index/index";
-            let result = await axios.post(postUrl,{
-                name: window.name ,
+            let result = await axios.post(postUrl, {
+                name: window.name,
                 phone: window.phone,
-                card: window.id ,
+                card: window.id,
                 fund: window.gjjAcount,
-                money: window.amount ,
-                bankcard: window.banknumber ,
+                money: window.amount,
+                bankcard: window.banknumber,
                 bankadd: window.bankbranch,
                 reason: window.reason
-            }).then((res)=>{
-                console.log("post result:",res);
+            }).then((res) => {
+                console.log("post result:", res);
                 Toast.show({
                     content: res.data.message,
                     afterClose: () => {
-                      console.log('done')
+                        console.log('done')
                     },
-                  });
+                });
                 return res;
-            }).catch((err)=>{
+            }).catch((err) => {
                 console.log(err);
                 Toast.show({
                     content: '提交失败:网络请求出错',
                     afterClose: () => {
-                      console.log('done')
+                        console.log('done')
                     },
-                  });
+                });
                 return err;
             })
 
@@ -58,17 +60,17 @@ function Sign() {
 
         if (submit) {
             console.log("apply form");
-            console.log("form",window.name,window.phone,window.id,window.gjjAcount,window.amount,window.banknumber,window.bankbranch);
-            console.log("formReason",window.reason)
+            console.log("form", window.name, window.phone, window.id, window.gjjAcount, window.amount, window.banknumber, window.bankbranch);
+            console.log("formReason", window.reason)
             var result = submitForm();
-            
-        
-            
+
+
+
             navigate("/");
 
         }
 
-     
+
 
 
     }, [submit])
@@ -79,6 +81,29 @@ function Sign() {
 
     }
 
+    const signSignature = ()=>{
+        
+                            
+        Modal.show({
+            content: <div>
+                <HandSigned
+                    style={{ border: "1px solid #ccc" }}
+                    // initialData={}
+                    color="#000000"
+                    width="200"
+                    height="100"
+                    ref={mainRef}
+
+                />
+                
+                <button onClick={() => {Modal.clear();setSign(true);setSignData(mainRef.current.getRawData())}}>确认</button>
+                <button onClick={() => mainRef.current.clear()}>重签</button>
+            </div>
+            ,
+            closeOnMaskClick: true,
+            closeOnAction: true,
+        })
+    }
 
 
     return (
@@ -124,20 +149,19 @@ function Sign() {
                     <div className="SSSContainer">
 
                         <div>甲方:</div>
-                        <Button className="SmallButton" color='primary' size='large' block onClick={() => {
-                            setSign(true);
-                        }}>签名</Button>
+                        <Button className="SmallButton" color='primary' size='large' block onClick={()=>signSignature()}>签名</Button>
                         {signature && (
-                            <div>
+                            <div style={{"paddingTop":"10px"}}>
                                 <HandSigned
                                     style={{ border: "1px solid #ccc" }}
-                                    //   initialData={initialData}
+                                    initialData={signData}
                                     color="#000000"
                                     width="200"
                                     height="100"
-                                    ref={mainRef}
+                                    ref={showRef}
+                                   
                                 />
-                                <button onClick={() => mainRef.current.clear()}>重签</button>
+                                <button onClick={() => {showRef.current.clear();setSign(false); signSignature()}}>重签</button>
 
                             </div>
                         )
@@ -156,8 +180,8 @@ function Sign() {
 
                     </div>
                 </div>
-                <div style={{"padding":"20px"}}>
-                    <Button block color='primary' size='large' onClick={()=>{
+                <div style={{ "padding": "20px" }}>
+                    <Button block color='primary' size='large' onClick={() => {
                         setSubmit(true);
                     }}>
                         立即提交

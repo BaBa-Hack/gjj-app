@@ -5,7 +5,7 @@ import Check from "./pages/Check";
 import { Routes, Route, Link } from "react-router-dom";
 import { FloatingBubble } from 'antd-mobile';
 import { MessageFill } from 'antd-mobile-icons';
-
+// import "./App.css";
 
 function App() {
 
@@ -15,7 +15,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="root">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="sign" element={<Sign />} />
