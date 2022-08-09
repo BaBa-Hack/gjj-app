@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import sign1 from "../imgs/sign1.png";
 import sign2 from "../imgs/sign2.png";
 import background2 from "../imgs/beijing2.jpg";
+import axios from 'axios';
 
 
 
@@ -153,10 +154,13 @@ function Home() {
 
     }
 
-    const onSubmit3 = () => {
-        Modal.clear();
-        navigate('/sign');
+    const onSubmit3 = async () => {
 
+
+
+        Modal.clear();
+
+        navigate('/sign')
 
 
     }
@@ -204,10 +208,29 @@ function Home() {
         })
     }
 
-    const onCheck2 = () => {
+    const onCheck2 = async () => {
         Modal.clear();
-        navigate("/check");
+        let checkUrl = "/user/index/check"
+        let result = await axios.post(checkUrl, {
+            phone: window.phone
+        }).then((res) => {
+            console.log("Data fetch:", res)
 
+            return res.data.message;
+        }).catch((err) => {
+            console.log(err);
+            return err;
+        });
+
+        if(result.name){
+            navigate("/check");
+        }
+        else    Toast.show({
+            content: '查询失败:信息不存在',
+            afterClose: () => {
+                console.log('done')
+            },
+        });
     }
     return (
 

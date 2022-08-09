@@ -2,6 +2,7 @@
   "name": "gjj-app",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://154.38.116.197",
   "dependencies": {
     "@react-goodies/hand-signed": "^1.0.0",
     "@testing-library/jest-dom": "^5.16.5",
@@ -9,7 +10,6 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
     "focus-trap-react": "^9.0.2",
-    "http-proxy-middleware": "^2.0.6",
     "moment": "^2.29.4",
     "pd-signature": "^1.0.1",
     "react": "^18.2.0",
