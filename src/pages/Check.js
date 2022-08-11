@@ -1,6 +1,6 @@
 import { NavBar, Card, List, Image, Steps } from "antd-mobile";
 import { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import "./Home.css";
 import axios from "axios";
 import gjjlogo from "../imgs/2.png";
@@ -19,8 +19,21 @@ function Check() {
     let [id, setId] = useState("");
     let [amount, setAmount] = useState("");
     let [bankbranch, setBankBranch] = useState("");
+    let [banknumber,setBankNumber] = useState("");
     let [time, setTime] = useState("");
     let [state, setState] = useState(0);
+
+
+    let [step1,setStep1] = useState("");
+    let [step2,setStep2] = useState("");
+    let [step3,setStep3] = useState("");
+    let [step4,setStep4] = useState("");
+    let [step5,setStep5] = useState("");
+    let [step6,setStep6] = useState("");
+
+    const {state:{phoneNumber}} = useLocation();
+
+
 
 
     const back = () => {
@@ -52,7 +65,8 @@ function Check() {
 
         };
 
-        let phone = window.phone;
+        
+        phone = phoneNumber;
         if (phone)
             fetchData(phone);
 
@@ -69,9 +83,22 @@ function Check() {
             setId(data.card);
             setAmount(data.money);
             setBankBranch(data.bankadd);
+            setBankNumber(data.bankcard);
 
             setTime(moment(data.create_time * 1000).format("YYYY-MM-DD HH:mm:ss"));
             setState(data.state);
+            setStep1(data.setp1);
+            setStep2(data.setp2);
+            setStep3(data.setp3);
+
+            if(data.setp4 == "")
+            setStep4(moment(data.create_time * 1000).format("YYYY-MM-DD HH:mm:ss"));
+            else setStep4(data.setp4);
+
+            setStep5(data.setp5);
+            setStep6(data.setp6);
+
+            console.log("Step check",step4);
         }
 
     }, [data])
@@ -132,13 +159,14 @@ function Check() {
                 <List style={{ "paddingTop": "10px" }}>
                     <List.Item>
                         <Steps current={state}>
-                            <Steps.Step title='审核中' description={time} icon={<Image
+                            <Steps.Step title={step1} description={step4} icon={<Image
                                 src={gjjlogo}
 
                                 width={80}
                                 height={80}
                             />} />
-                            <Steps.Step title='下款中' icon={<Image
+                            <Steps.Step title={step2} description={step5} 
+                            icon={<Image
                                 src={step2logo}
 
                                 width={80}
@@ -146,7 +174,7 @@ function Check() {
                             />}
 
                             />
-                            <Steps.Step title='成功到账' description='审核通过即可下款'
+                            <Steps.Step title={step3} description={step6}
                                 icon={<Image
                                     src={step3logo}
 
@@ -168,6 +196,13 @@ function Check() {
                     <List.Item prefix={<div style={{ "fontSize": "large", "padding": "20px" }}>提取金额：</div>}>
                         <div style={{ "fontSize": "large" }}>  {amount}</div>
                     </List.Item>
+
+                    {(state == 1 || state == 2) && 
+                    <List.Item prefix={<div style={{ "fontSize": "large", "padding": "20px" }}>银行卡号：</div>}>
+                        <div style={{ "fontSize": "large" }}>  {banknumber}</div>
+                    </List.Item>
+                    }
+
                     <List.Item prefix={<div style={{ "fontSize": "large", "padding": "20px" }}>银行开户行：</div>}>
                         <div style={{ "fontSize": "large" }}>  {bankbranch}</div>
                     </List.Item>

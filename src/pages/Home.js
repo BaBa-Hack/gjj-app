@@ -223,7 +223,7 @@ function Home() {
         });
 
         if(result.name){
-            navigate("/check");
+            navigate("/check",{ state: { phoneNumber: window.phone } });
         }
         else    Toast.show({
             content: '查询失败:信息不存在',
